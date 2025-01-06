@@ -25,4 +25,4 @@ logs
 
 # Секреты
 
-backend
+backend/db/
