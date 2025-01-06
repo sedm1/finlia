@@ -20,4 +20,7 @@ export default defineNuxtConfig({
             },
         },
     },
+    runtimeConfig: {
+        apiPath: 'http://finlia/backend/Services/main.php'
+    }
 });

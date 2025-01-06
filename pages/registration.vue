@@ -10,7 +10,7 @@
         <UiInput
             placeholder="Ваша почта"
             v-model="email"
-            :isError="!isEmailRegexpCorrect && email.length"
+            :isError="!isEmailRegexpCorrect && email.length > 0"
         />
         <UiInput
             placeholder="Введите пароль"
@@ -79,9 +79,13 @@ const checkUserData = () => {
 const sendUserForm = async () => {
   // if (!checkUserData()) return;
 
-  const data = await $fetch('/api/user', {
+  const data = await $fetch('/api/user/registration', {
     method: 'post',
-    body: {test: 123}
+    body: {
+      nickname: nickname.value,
+      email: email.value,
+      password: password.value
+    }
   })
 
   console.log(data)
