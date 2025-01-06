@@ -29,6 +29,8 @@
             title="Зарегистрироваться"
             class="mainForm_button"
         ></UiButton>
+
+        <NuxtLink></NuxtLink>
       </div>
     </div>
   </section>
@@ -74,10 +76,15 @@ const checkUserData = () => {
 /**
  * Отправить данные клиента на сервер
  */
-const sendUserForm = () => {
-  if (!checkUserData()) return;
+const sendUserForm = async () => {
+  // if (!checkUserData()) return;
 
-  alert('Данные отправлены')
+  const data = await $fetch('/api/user', {
+    method: 'post',
+    body: {test: 123}
+  })
+
+  console.log(data)
 }
 </script>
 
