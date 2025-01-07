@@ -31,19 +31,20 @@ if (!file_exists($service_file)) {
 
     exit;
 }
-
 /**
  * Буферизация файла
  */
-ob_start();
+function include_service($service_file, $data)
+{
+    ob_start();
+    include $service_file;
 
-include_once $service_file;
+    return ob_get_clean();
+}
 
-$data = ob_get_contents();
-
-$res['data'] = json_decode($data, true);
-
-ob_clean();
+$serviceRes = json_decode(include_service($service_file, $data), true);
+if (!$serviceRes['errors']) $res['data'] = $serviceRes['data'];
+$res['errors'] = $serviceRes['errors'] ?: [];
 
 echo json_encode($res, JSON_UNESCAPED_UNICODE);
 

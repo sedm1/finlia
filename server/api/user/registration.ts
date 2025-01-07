@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
         method: 'POST',
         body: {
             nickname, email, password,
-            action: 'user/get'
+            action: 'user/add'
         }
     })
 

@@ -77,7 +77,7 @@ const checkUserData = () => {
  * Отправить данные клиента на сервер
  */
 const sendUserForm = async () => {
-  // if (!checkUserData()) return;
+  if (!checkUserData()) return;
 
   const res = await $fetch('/api/user/registration', {
     method: 'post',
