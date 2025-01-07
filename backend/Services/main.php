@@ -1,4 +1,6 @@
 <?php
+include __DIR__ . '/../db/connect.php';
+
 $rawData = file_get_contents("php://input");
 $data = json_decode($rawData, true);
 
@@ -23,26 +25,30 @@ if (empty($action)) {
     exit;
 }
 
-$service_file = __DIR__ . '/' . $action . '.php';
+$serviceFile = __DIR__ . '/' . $action . '.php';
 
-if (!file_exists($service_file)) {
+if (!file_exists($serviceFile)) {
     $res['errors'][] = 'Сервис не найден';
     echo json_encode($res, JSON_UNESCAPED_UNICODE);
 
     exit;
 }
-/**
- * Буферизация файла
- */
-function include_service($service_file, $data)
-{
-    ob_start();
-    include $service_file;
 
-    return ob_get_clean();
+function include_service($serviceFile, $data)
+{
+    global $action;
+    global $pdo;
+
+    include_once '../Methods/AbstractMethod.php';
+    include_once $serviceFile;
+
+    $service = 'Services\\' . str_replace('/', '\\', $action);
+    $service = new $service($data, $pdo);
+
+    return $service->exec();
 }
 
-$serviceRes = json_decode(include_service($service_file, $data), true);
+$serviceRes = include_service($serviceFile, $data);
 if (!$serviceRes['errors']) $res['data'] = $serviceRes['data'];
 $res['errors'] = $serviceRes['errors'] ?: [];
 
