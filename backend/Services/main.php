@@ -11,7 +11,8 @@ $res = [
     'errors' => [],
 ];
 
-function sanitize_action($action)
+echo phpinfo(); ?>
+function sanitize_action($action): string
 {
     return preg_replace('/[^a-zA-Z0-9_\/]/', '', $action);
 }

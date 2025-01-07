@@ -15,19 +15,19 @@ class Add extends Methods\AbstractMethod
     /**
      * Никнейм пользователя
      */
-    public $nickname;
+    public string $nickname;
 
     /**
      * Email пользователя
      */
-    public $email;
+    public string $email;
 
     /**
      * Пароль пользователя
      */
-    public $password;
+    public string $password;
 
-    public function exec()
+    public function exec(): array
     {
         $res = [];
 
