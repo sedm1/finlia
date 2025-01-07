@@ -4,7 +4,10 @@ $data = json_decode($rawData, true);
 
 $action = isset($data['action']) ? $data['action'] : '';
 
-$res = [];
+$res = [
+    'data' => [],
+    'errors' => [],
+];
 
 function sanitize_action($action)
 {
@@ -29,7 +32,18 @@ if (!file_exists($service_file)) {
     exit;
 }
 
-$res = include_once($service_file);
+/**
+ * Буферизация файла
+ */
+ob_start();
+
+include_once $service_file;
+
+$data = ob_get_contents();
+
+$res['data'] = json_decode($data, true);
+
+ob_clean();
 
 echo json_encode($res, JSON_UNESCAPED_UNICODE);
 

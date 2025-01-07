@@ -79,7 +79,7 @@ const checkUserData = () => {
 const sendUserForm = async () => {
   // if (!checkUserData()) return;
 
-  const data = await $fetch('/api/user/registration', {
+  const res = await $fetch('/api/user/registration', {
     method: 'post',
     body: {
       nickname: nickname.value,
@@ -88,7 +88,7 @@ const sendUserForm = async () => {
     }
   })
 
-  console.log(data)
+  console.log(res)
 }
 </script>
 

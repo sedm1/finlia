@@ -56,10 +56,6 @@ useHead({
       align-items: center
       gap: 20px
 
-    &Links
-      &_registration
-
-
 @media screen and (max-width: 750px)
   .main
     &_block
