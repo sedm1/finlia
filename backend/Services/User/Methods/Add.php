@@ -1,9 +1,11 @@
 <?php
 
-namespace Services\User;
+namespace Services\User\Methods;
 
-use PDO;
+require_once __DIR__ . '/../Mods/User.php';
+
 use Methods;
+use Services\User;
 
 /**
  * Регистрация пользователя
@@ -29,7 +31,7 @@ class Add extends Methods\AbstractMethod
     {
         $res = [];
 
-        if ($this->checkUserExist()) {
+        if (User\Mods\User::isUserExist($this->pdo, $this->nickname, $this->email)) {
             $res['errors']['text'] = 'Пользователь с такой почтой или с таким email уже существует';
 
             return $res;
@@ -48,16 +50,6 @@ class Add extends Methods\AbstractMethod
         $res['data']['text'] = 'Регистрация прошла успешно. Теперь вы можете войти в аккаунт';
 
         return $res;
-    }
-
-    protected function checkUserExist()
-    {
-        $sql = "SELECT COUNT(`id`) as usersCount FROM `users` WHERE `nickname` = :nickname OR `email` = :email";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(["nickname" => $this->nickname, "email" => $this->email]);
-
-
-        return $stmt->fetch(PDO::FETCH_ASSOC)['usersCount'] > 0;
     }
 }
 

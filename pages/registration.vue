@@ -29,9 +29,12 @@
             title="Зарегистрироваться"
             class="mainForm_button"
         ></UiButton>
-
-        <NuxtLink></NuxtLink>
       </div>
+
+      <p class="mainForm_link">Уже есть аккаунт?
+        <NuxtLink to="/login">Войти</NuxtLink>
+      </p>
+
     </div>
   </section>
 </template>
@@ -39,6 +42,8 @@
 <script setup>
 import UiInput from '@/ui/input/input.vue'
 import UiButton from '@/ui/button/button.vue'
+
+const {$toast} = useNuxtApp()
 
 useHead({
   title: 'Finlia - Регистрация'
@@ -88,7 +93,10 @@ const sendUserForm = async () => {
     }
   })
 
-  console.log(res)
+  if (res.errors.text) return $toast.error(res.errors.text)
+
+  return $toast.success(res.data.text)
+
 }
 </script>
 
@@ -112,4 +120,15 @@ const sendUserForm = async () => {
   &Form
     &_button
       margin-top: 10px
+
+    &_link
+      font-size: 14px
+      display: flex
+      align-items: center
+      gap: 2px
+      margin-top: 10px
+
+      a
+        font-size: 14px
+        color: $blue
 </style>

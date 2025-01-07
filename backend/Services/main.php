@@ -24,6 +24,9 @@ if (empty($action)) {
 
     exit;
 }
+$servicePosition = strpos($action, "/");
+
+$action = substr_replace($action, '/Methods/', $servicePosition, 1);
 
 $serviceFile = __DIR__ . '/' . $action . '.php';
 
@@ -42,7 +45,10 @@ function include_service($serviceFile, $data)
     include_once '../Methods/AbstractMethod.php';
     include_once $serviceFile;
 
-    $service = 'Services\\' . str_replace('/', '\\', $action);
+    $servicePath = str_replace('/', '\\', $action);
+
+    $service = 'Services\\' . $servicePath;
+
     $service = new $service($data, $pdo);
 
     return $service->exec();
