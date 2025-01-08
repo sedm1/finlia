@@ -11,7 +11,6 @@ $res = [
     'errors' => [],
 ];
 
-echo phpinfo(); ?>
 function sanitize_action($action): string
 {
     return preg_replace('/[^a-zA-Z0-9_\/]/', '', $action);
@@ -38,7 +37,7 @@ if (!file_exists($serviceFile)) {
     exit;
 }
 
-function include_service($serviceFile, $data)
+function include_service($serviceFile, $data) : array
 {
     global $action;
     global $pdo;
@@ -56,8 +55,9 @@ function include_service($serviceFile, $data)
 }
 
 $serviceRes = include_service($serviceFile, $data);
-if (!$serviceRes['errors']) $res['data'] = $serviceRes['data'];
-$res['errors'] = $serviceRes['errors'] ?: [];
+if (!isset($serviceRes['errors'])) $res['data'] = $serviceRes['data'];
+
+$res['errors'] = $serviceRes['errors'] ?? [];
 
 echo json_encode($res, JSON_UNESCAPED_UNICODE);
 

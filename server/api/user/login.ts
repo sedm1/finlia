@@ -1,4 +1,10 @@
-export default defineEventHandler(async (event) => {
+import {type Api} from '@/server/api/types/api'
+
+type Login = {
+    hash: string
+}
+
+export default defineEventHandler(async (event): Promise<Api<Login>> => {
     const {nickname, password} = await readBody(event)
     const config = useRuntimeConfig();
 

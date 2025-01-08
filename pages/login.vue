@@ -2,6 +2,8 @@
 import UiInput from '@/ui/input/input.vue'
 import UiButton from '@/ui/button/button.vue'
 
+const {$toast} = useNuxtApp()
+
 const nickname = ref('')
 const password = ref('')
 
@@ -18,6 +20,10 @@ const login = async () => {
       password: password.value
     }
   })
+
+  if (res.errors.text) return $toast.error(res.errors.text)
+
+  return $toast.success(res.data.text)
 }
 </script>
 
