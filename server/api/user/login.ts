@@ -1,7 +1,8 @@
-import {type Api} from '@/server/api/types/api'
+import {type Api} from '@/server/types/api'
 
 type Login = {
-    hash: string
+    hash: string,
+    nickname: string
 }
 
 export default defineEventHandler(async (event): Promise<Api<Login>> => {

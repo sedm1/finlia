@@ -2,11 +2,13 @@
 
 namespace Methods;
 
+use PDO;
+
 class AbstractMethod
 {
-    protected $params;
+    protected array $params;
 
-    protected $pdo;
+    protected PDO $pdo;
 
     public function __construct($params = [], $pdo = null)
     {

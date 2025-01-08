@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import UiInput from '@/ui/input/input.vue'
 import UiButton from '@/ui/button/button.vue'
+import {useRouter} from "#app";
 
 const {$toast} = useNuxtApp()
+const userStore = useUserStore();
+const router = useRouter();
 
 const nickname = ref('')
 const password = ref('')
@@ -23,6 +26,10 @@ const login = async () => {
 
   if (res.errors.text) return $toast.error(res.errors.text)
 
+  userStore.hash = res.data.hash
+  userStore.nickname = res.data.nickname
+
+  setTimeout(() => router.push('/main'), 1500)
   return $toast.success(res.data.text)
 }
 </script>

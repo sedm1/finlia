@@ -10,7 +10,7 @@ export default defineNuxtConfig({
                 Nunito: true,
             },
         },
-    ], "@pinia/nuxt"],
+    ], "@pinia/nuxt", 'pinia-plugin-persistedstate/nuxt'],
     vite: {
         css: {
             preprocessorOptions: {

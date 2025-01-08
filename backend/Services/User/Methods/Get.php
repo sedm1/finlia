@@ -44,6 +44,7 @@ class Get extends Methods\AbstractMethod
 
         $res['data']['text'] = 'Вход выполнен успешно';
         $res['data']['hash'] = $sqlRes;
+        $res['data']['nickname'] = $this->nickname;
 
         return $res;
     }
