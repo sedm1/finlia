@@ -22,7 +22,7 @@ import {useRouter} from "#app";
 const router = useRouter();
 
 useHead({
-  title: 'Главная страница - Finlia'
+  title: 'Добро пожаловать - Finlia'
 })
 </script>
 

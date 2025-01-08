@@ -3,6 +3,10 @@ import UiInput from '@/ui/input/input.vue'
 import UiButton from '@/ui/button/button.vue'
 import {useRouter} from "#app";
 
+useSeoMeta({
+  title: 'Вход в аккаунт - Finlia'
+})
+
 const {$toast} = useNuxtApp()
 const userStore = useUserStore();
 const router = useRouter();
